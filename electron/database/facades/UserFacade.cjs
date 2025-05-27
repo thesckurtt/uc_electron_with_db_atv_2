@@ -15,9 +15,9 @@ class UserFacade {
       const result = await db('users').insert({ name, email, password: hashedPassword })
 
       if (result && result.length > 0) {
-        return { error: false, message: "User registered successfully!" }
+        return true
       } else {
-        return { error: false, message: "User not registered!" }
+        return false
       }
     } catch (error) {
       return { error: true, message: `[UserFacade]:  ${error.message || 'Unexpected error'}` }
