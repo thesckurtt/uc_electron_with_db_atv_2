@@ -20,6 +20,11 @@ class AuthFacade {
       return { error: true, message: `[AuthFacade]: ${error.message || 'Unexpected error'}` }
     }
   }
+
+  static async register({name, email, password}){
+    
+  }
 }
-AuthFacade.login({ email: "Gianni_Bernhard62@yahoo.com", password: "teste" }).then(res => console.log(res))
+
+// AuthFacade.login({ email: "Gianni_Bernhard62@yahoo.com", password: "teste" }).then(res => console.log(res))
 module.exports = AuthFacade
