@@ -9,6 +9,9 @@ const Login = () => {
 
   function handleSubmit(e) {
     e.preventDefault()
+    if (window.electronAuth) {
+      window.electronAuth.login({email: email, password: password})
+    }
   }
   return (
     <div className="login-card">
