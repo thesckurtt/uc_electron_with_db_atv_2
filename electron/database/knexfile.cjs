@@ -1,10 +1,10 @@
-// Update with your config settings.
-require('dotenv').config()
+const path = require('node:path')
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 module.exports = {
-
   development: {
     client: 'mysql2',
     connection: {
