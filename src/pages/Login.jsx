@@ -5,20 +5,29 @@ import { Link } from 'react-router-dom'
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState(false)
 
+  function handleSubmit(e) {
+    e.preventDefault()
+  }
   return (
-    <div class="login-card">
-      <h3 class="text-center mb-4">Login</h3>
-      <form>
-        <InptAuthForm type={'email'} value={email} setValue={setEmail} text={"E-mail"} placeholder={'email@example.com'} />
-        <InptAuthForm type={'password'} />
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="lembrar" />
-          <label class="form-check-label" for="lembrar">Lembrar-me</label>
+    <div className="login-card">
+      <h3 className="text-center mb-4">Login</h3>
+      {error &&
+        <div className="alert alert-danger" role="alert">
+          This is a danger alert—check it out!
         </div>
-        <button type="submit" class="btn btn-primary w-100">Entrar</button>
-        <div class="text-center mt-3">
-          <span>Não possuí conta? <Link>Registre-se aqui</Link></span>
+      }
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <InptAuthForm type={'email'} value={email} setValue={setEmail} text={"E-mail"} placeholder={'email@example.com'} />
+        <InptAuthForm type={'password'} value={password} setValue={setPassword} text={"Senha"} placeholder={'********'} />
+        <div className="mb-3 form-check">
+          <input type="checkbox" className="form-check-input" id="lembrar" />
+          <label className="form-check-label" for="lembrar">Lembrar-me</label>
+        </div>
+        <button type="submit" className="btn btn-primary w-100">Entrar</button>
+        <div className="text-center mt-3">
+          <span>Não possuí conta? <Link to={'/register'} >Registre-se aqui</Link></span>
         </div>
       </form>
     </div>
