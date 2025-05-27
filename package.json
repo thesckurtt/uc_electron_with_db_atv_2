@@ -5,7 +5,7 @@
   "type": "module",
   "main": "electron/main.cjs",
   "scripts": {
-    "app" : "concurrently -k \"npm:dev\" \"npm:electron\"",
+    "app": "concurrently -k \"npm:dev\" \"npm:electron\"",
     "dev": "vite",
     "build": "vite build",
     "electron": "electron .",
@@ -13,6 +13,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
