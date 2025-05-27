@@ -21,10 +21,20 @@ class AuthFacade {
     }
   }
 
-  static async register({name, email, password}){
-    
+  static async register({ name, email, password }) {
+    try {
+      const hashedPassword = await bcryptjs.hash(password, 10)
+      const isRegistered = await UserFacade.addUser({ name, email, hashedPassword })
+      // console.log(isRegistered)
+      if (isRegistered && !isRegistered?.error) {
+        return { error: false, message: "User registered succesfully!" }
+      }
+      return { error: true, message: "User not registered!" }
+    } catch (error) {
+      return { error: true, message: `[AuthFacade]: ${error.message || 'Unexpected error!'}` }
+    }
   }
 }
-
+// AuthFacade.register({name: "Joshuwe", email: "Josdhdduwe_Bernhard62@yahoo.com", password: "teste"}).then(res => console.log(res))
 // AuthFacade.login({ email: "Gianni_Bernhard62@yahoo.com", password: "teste" }).then(res => console.log(res))
 module.exports = AuthFacade
