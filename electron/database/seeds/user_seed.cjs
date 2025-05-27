@@ -7,7 +7,8 @@ exports.seed = async function (knex) {
   const users = [];
 
   for (let i = 0; i < 10; i++) {
-    const hashedPassword = await bcryptjs.hash(faker.internet.password(10), 10); // 10 rounds de salt
+    // const hashedPassword = await bcryptjs.hash(faker.internet.password(10), 10); // 10 rounds de salt
+    const hashedPassword = await bcryptjs.hash("teste", 10); // 10 rounds de salt
 
     users.push({
       name: faker.person.fullName(),
