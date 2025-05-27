@@ -17,4 +17,9 @@ function createMainWindow() {
   mainWindow.loadURL('http://localhost:5173')
 }
 
+ipcMain.handle('auth:login', async (_,data) => {
+  
+  console.log(data)
+})
+
 app.whenReady().then(createMainWindow)
