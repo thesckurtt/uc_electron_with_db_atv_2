@@ -1,7 +1,7 @@
 class UserFacade {
   static async getUserByEmail(){
-    
+
   }
 }
 
-exports.module = UserFacade
+module.exports = UserFacade
