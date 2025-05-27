@@ -10,10 +10,15 @@
     "build": "vite build",
     "electron": "electron .",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "knex:migrate:make":"npx knex migrate:make --knexfile ./electron/database/knexfile.cjs",
+    "knex:migrate:latest":"npx knex migrate:latest --knexfile ./electron/database/knexfile.cjs"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
+    "dotenv": "^16.5.0",
+    "knex": "^3.1.0",
+    "mysql2": "^3.14.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.1"
