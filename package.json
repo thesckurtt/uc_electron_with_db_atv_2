@@ -11,10 +11,13 @@
     "electron": "electron .",
     "lint": "eslint .",
     "preview": "vite preview",
-    "knex:migrate:make":"npx knex migrate:make --knexfile ./electron/database/knexfile.cjs",
-    "knex:migrate:latest":"npx knex migrate:latest --knexfile ./electron/database/knexfile.cjs"
+    "knex:migrate:make": "npx knex migrate:make --knexfile ./electron/database/knexfile.cjs",
+    "knex:migrate:latest": "npx knex migrate:latest --knexfile ./electron/database/knexfile.cjs",
+    "knex:seed:make": "npx knex seed:make --stub ./stubs/seed.stub.cjs  --knexfile ./electron/database/knexfile.cjs",
+    "knex:seed:run": "npx knex seed:run --knexfile ./electron/database/knexfile.cjs"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.8.0",
     "bcryptjs": "^3.0.2",
     "dotenv": "^16.5.0",
     "knex": "^3.1.0",
