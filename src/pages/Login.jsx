@@ -1,20 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import InptAuthForm from '../components/InptAuthForm'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
+  const navigate = useNavigate()
+  const { login } = useAuth()
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
-    if (window.electronAuth) {
-      window.electronAuth.login({email: email, password: password})
+    try {
+      const response = await login({ email, password })
+      if (response.error) {
+        setError(response.message)
+      } else {
+        navigate('/dashboard', { replace: true })
+      }
+    } catch (error) {
+      setError('Erro inesperado, tente novamente.')
     }
   }
+
+  useEffect(() => {
+    setError(null)
+  }, [password, email])
   return (
-    <div className="login-card">
+    <div className="login-card ">
       <h3 className="text-center mb-4">Login</h3>
       {error &&
         <div className="alert alert-danger" role="alert">

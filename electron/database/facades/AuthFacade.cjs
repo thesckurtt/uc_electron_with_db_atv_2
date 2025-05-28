@@ -1,5 +1,9 @@
 const UserFacade = require("./UserFacade.cjs")
 const bcryptjs = require('bcryptjs')
+const JWT = require('jsonwebtoken')
+const path = require('node:path')
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') })
+
 class AuthFacade {
   static async login({ email, password }) {
     try {
@@ -11,7 +15,8 @@ class AuthFacade {
       const isValidPassword = await bcryptjs.compare(password, user.password)
 
       if (isValidPassword && user) {
-        return { error: false, user: user }
+        const token = JWT.sign({ user_id: 1, name: user.name }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN })
+        return { error: false, user: {name: user.name, email: user.email}, token: token }
       }
 
       return { error: true, message: "Invalid credentials" }
@@ -25,7 +30,6 @@ class AuthFacade {
     try {
       const hashedPassword = await bcryptjs.hash(password, 10)
       const isRegistered = await UserFacade.addUser({ name, email, hashedPassword })
-      // console.log(isRegistered)
       if (isRegistered && !isRegistered?.error) {
         return { error: false, message: "User registered succesfully!" }
       }

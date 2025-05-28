@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
 let mainWindow = null
+const AuthFacade = require('./database/facades/AuthFacade.cjs')
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
@@ -17,9 +18,12 @@ function createMainWindow() {
   mainWindow.loadURL('http://localhost:5173')
 }
 
-ipcMain.handle('auth:login', async (_,data) => {
-  
-  console.log(data)
+ipcMain.handle('auth:login', async (_,user) => {
+  return await AuthFacade.login(user)
+})
+
+ipcMain.handle('auth:register', async (_,user) => {
+  return await AuthFacade.register(user)
 })
 
 app.whenReady().then(createMainWindow)

@@ -1,15 +1,24 @@
 import React, { useState } from 'react'
 import InptAuthForm from '../components/InptAuthForm'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Register = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
+  const navigate = useNavigate()
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
+    if (window.electronAuth) {
+      const response = await window.electronAuth.register({ name, email, password })
+      if (!response.error) {
+        navigate('/login', { replace: true })
+        return
+      }
+      setError(response.message)
+    }
   }
 
   return (
