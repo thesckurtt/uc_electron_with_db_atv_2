@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import InptAuthForm from '../components/InptAuthForm'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
 const Register = () => {
   const [name, setName] = useState('')
@@ -8,16 +9,20 @@ const Register = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
   const navigate = useNavigate()
+  const { register } = useAuth()
+
 
   async function handleSubmit(e) {
     e.preventDefault()
-    if (window.electronAuth) {
-      const response = await window.electronAuth.register({ name, email, password })
-      if (!response.error) {
+    try {
+      const response = await register({ name, email, password })
+      if (response.error) {
+        setError(response.error)
+      } else {
         navigate('/login', { replace: true })
-        return
       }
-      setError(response.message)
+    } catch (error) {
+      setError('Erro inesperado, tente novamente.')
     }
   }
 

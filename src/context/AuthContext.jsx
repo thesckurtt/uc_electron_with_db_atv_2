@@ -54,11 +54,24 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const register = async (user) => {
+  const register = async ({ name, email, password }) => {
+    if (!window.electronAuth) {
+      return { error: true, message: "Electron auth module not found" }
+    }
 
+    try {
+      const response = await window.electronAuth.register({ name, email, password })
+      if (!response.error) {
+        return { error: false }
+      }
+      return { error: true, message: response.message }
+    } catch (error) {
+      return { error: true, message: `[AuthContext]: ${error.message || "Unexpected error!"}` }
+
+    }
   }
   return (
-    <AuthContext.Provider value={{ user, isLoggedIn, login, register }}>
+    <AuthContext.Provider value={{ user, isLoggedIn, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   )
