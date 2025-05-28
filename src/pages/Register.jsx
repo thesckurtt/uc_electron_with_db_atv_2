@@ -11,7 +11,6 @@ const Register = () => {
   const navigate = useNavigate()
   const { register } = useAuth()
 
-
   async function handleSubmit(e) {
     e.preventDefault()
     try {
